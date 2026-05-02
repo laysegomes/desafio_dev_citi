@@ -1,12 +1,11 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+// Este é o seu arquivo de configuração do Prisma corrigido
 
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
@@ -21,11 +20,11 @@ model User {
 }
 
 model Calcado {
-  id Int @id @default(autoincrement())
-  nome_produto String
-  cor String
-  marca String
-  tamanho Int
-  preco Int
+  id                    Int    @id @default(autoincrement())
+  nome_produto          String
+  cor                   String
+  marca                 String
+  tamanho               Int
+  preco                 Int
   quantidade_em_estoque Int
 }

@@ -105,63 +105,40 @@ O server tem uma estrutura base de código para a construção de uma API.
 
 <br/>
 
-0. Certifique-se que o docker esteja devidamente instalado
-1. Com a pasta /server aberta no vscode, crie um novo arquivo e o nomeie de ".env"
-2. Dentro desse novo arquivo criado, coloque esse texto abaixo
+0. Com a pasta /server aberta no VSCode, crie um novo arquivo chamado `.env`.
+1. Dentro deste arquivo, adicione:
 
-   ```javascript
-      # ###### GENERAL SETTINGS #######
-      PROJECT_NAME=pta
-      SERVER_PORT=3001 
-
-      # ###### DATABASE SETTINGS #######
-      DATABASE_TYPE=postgres
-      DATABASE_HOST=${PROJECT_NAME}-db
-      DATABASE_PORT=5432
-      DATABASE_USER=postgres
-      DATABASE_PASSWORD=docker
-      DATABASE_DB=${PROJECT_NAME}
-
-      DATABASE_URL=${DATABASE_TYPE}://${DATABASE_USER}:${DATABASE_PASSWORD}@${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_DB}
+   ```env
+   SERVER_PORT=3001
+   DATABASE_URL="file:./dev.db"
    ```
-3. Abra um novo terminal no vscode
-4. Com o terminal aberto, escreva essa sentença abaixo e dê enter
+
+2. Abra um terminal na pasta /server e instale as dependências:
 
    ```sh
-   docker-compose up
+   npm install
    ```
 
-   ou 
+3. Gere o Prisma Client e crie o banco de dados SQLite local:
 
    ```sh
-   docker compose up
+   npx prisma generate
+   npx prisma db push
    ```
 
-5. Espere que o terminal esteja dessa maneira
-
-    <p align= "center"><img src= "./assets/server-status.png" width="85%"/>
-        
-    </p>
-
-6. Com este terminal rodando, abra outro terminal, ainda na pasta /server, e rode essa sentença abaixo
+4. Inicie o servidor:
 
    ```sh
-   yarn migration
+   npm run dev
    ```
 
-   ou 
+5. A API estará disponível em `http://localhost:3001`.
+
+6. Se você alterar `prisma/schema.prisma`, execute novamente:
 
    ```sh
-   npm run migration
+   npx prisma db push
    ```
-
-   *OBS. 1: Ao aparecer o campo "Enter a name for the new migration:", digite uma frase rápida que indique o que foi feito (ex.: add model user). A migration é como se fosse o commit do banco de dados.*
-   
-   *OBS. 2: É necessário que esse comando seja rodado a cada vez que você modificar o arquivo `schema.prisma`*
-
-<br/> 
-
-
 <br/>
 
 1. Entre na pasta /client do repositório
